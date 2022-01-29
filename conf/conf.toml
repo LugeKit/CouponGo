@@ -1,0 +1,19 @@
+mode = "debug"
+
+[jwt]
+    secret = "k1t_secret"
+    issuer = "k1t"
+    expire_time_sec = 3600
+    user_secret = "user_secret"
+    seller_secret = "seller_secret"
+
+[server]
+    ip_address = "127.0.0.1:8080"
+
+[database]
+    user = "k1"
+    password = "123"
+    ip_address = "127.0.0.1:3306"
+    db_name = "shop"
+    max_idle = 100
+    max_open = 150
