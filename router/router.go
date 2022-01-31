@@ -20,9 +20,9 @@ func NewServer() *gin.Engine {
 		apiv1.Handle("POST", "/login/user", v1.UserLoginHandler)
 		apiv1.Handle("POST", "/login/seller", v1.SellerLoginHandler)
 
-		couponCreate := apiv1.Group("/seller")
-		couponCreate.Use(middleware.SellerAuth())
-		couponCreate.Handle("POST", "/coupon", v1.CouponCreateHandler)
+		sellerCoupon := apiv1.Group("/seller")
+		sellerCoupon.Use(middleware.SellerAuth())
+		sellerCoupon.Handle("POST", "/coupon", v1.CouponCreateHandler)
 	}
 
 	return server

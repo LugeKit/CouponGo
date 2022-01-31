@@ -48,5 +48,5 @@ func ParseToken(token string) (*Claims, error) {
 		return claims, nil
 	}
 
-	return nil, fmt.Errorf("Parse token result error! type mismatch!")
+	return nil, fmt.Errorf("parse token result error! type mismatch")
 }

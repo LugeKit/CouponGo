@@ -23,7 +23,7 @@ func initMysql() {
 	password := conf.AppConfig.Database.Password
 	dbName := conf.AppConfig.Database.DBName
 	address := conf.AppConfig.Database.IPAddress
-	connectString := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", userName, password, address, dbName)
+	connectString := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", userName, password, address, dbName)
 
 	tablePrefix := ""
 	if conf.AppConfig.Mode == "debug" {
