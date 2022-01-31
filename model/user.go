@@ -17,7 +17,7 @@ func (u User) Create(db *gorm.DB) error {
 }
 
 func (u *User) Validate(db *gorm.DB) error {
-	err := db.Where("user_name = ? and password = ?", u.UserName, u.Password).Find(u).Error
+	err := db.Where("user_name = ? and password = ?", u.UserName, u.Password).First(u).Error
 	if err != nil {
 		return err
 	}

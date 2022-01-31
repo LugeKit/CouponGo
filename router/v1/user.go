@@ -2,6 +2,8 @@ package v1
 
 import (
 	"coupon/app"
+	"coupon/common"
+	"coupon/conf"
 	"coupon/router/v1/service"
 	"net/http"
 
@@ -41,12 +43,13 @@ func UserLoginHandler(c *gin.Context) {
 	}
 
 	svc := service.New()
-	token, err := svc.UserLogin(request)
+	userID, err := svc.UserLogin(request)
 	if err != nil {
 		ctx.ToErrorResponse(http.StatusInternalServerError, err)
 		return
 	}
 
+	token, err := common.GenerateToken(conf.AppConfig.JWT.UserSecret, userID)
 	c.Header("Authorization", token)
 	ctx.ToSuccessResponse(map[string]interface{}{
 		"message": "login success",

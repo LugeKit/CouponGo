@@ -2,7 +2,6 @@ package service
 
 import (
 	"coupon/common"
-	"coupon/conf"
 	"coupon/data"
 	"coupon/model"
 	"time"
@@ -36,18 +35,26 @@ func (s *service) CreateSeller(req CreateUserRequest) error {
 	return seller.Create(s.db)
 }
 
-func (s *service) UserLogin(req LoginRequest) (string, error) {
+func (s *service) UserLogin(req LoginRequest) (uint32, error) {
 	user := model.User{
 		UserName: req.UserName,
 		Password: common.MD5(req.Password),
 	}
 	err := user.Validate(s.db)
 	if err != nil {
-		return "", err
+		return 0, err
 	}
 
-	token, err := common.GenerateToken(conf.AppConfig.JWT.UserSecret, user.ID)
-	return token, err
+	return user.ID, err
+}
+
+func (s *service) SellerLogin(req LoginRequest) (uint32, error) {
+	seller := model.Seller{
+		UserName: req.UserName,
+		Password: common.MD5(req.Password),
+	}
+	err := seller.Validate(s.db)
+	return seller.ID, err
 }
 
 func (s *service) CreateCoupon(req CreateCouponRequest) error {
